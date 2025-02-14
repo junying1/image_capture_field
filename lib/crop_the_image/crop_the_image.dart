@@ -32,11 +32,13 @@ class CropTheImage extends StatelessWidget {
                   : outputImageData.value!,
               controller: _controller,
               aspectRatio: aspectRatio,
-              onCropped: (image) {
-                outputImageData.value = image;
-                _controller.area = Rect.largest;
-                // _controller.aspectRatio = 1;
-                // do something with image data
+              onCropped: (result) {
+                switch(result) {
+                  case CropSuccess(:final croppedImage):
+                    outputImageData.value = croppedImage;
+                    _controller.area = Rect.largest;
+                  case CropFailure(:final cause):
+                }
               },
             ),
             Padding(
